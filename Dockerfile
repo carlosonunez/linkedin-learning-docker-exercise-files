@@ -32,7 +32,10 @@ COPY ./entrypoint.bash /
 # Since our example script needs `curl` and `bash` to run, this Dockerfile
 # uses RUN commands to install those programs.
 RUN apt -y update
-RUN apt install curl bash
+RUN apt -y install curl bash
+
+# This command makes it possible for everyone to execute this script.
+RUN chmod 755 /entrypoint.bash
 
 # Here, we're using the USER command to set the default user for containers
 # created from this image to the power-less `nobody` user. This ensures that we can't
@@ -46,4 +49,4 @@ USER nobody
 # You can also use the CMD command to do this, though there are differences.
 #
 # Consult the documentation shown above to learn more.
-ENTRYPOINT [ "./entrypoint.bash" ]
+ENTRYPOINT [ "/entrypoint.bash" ]
